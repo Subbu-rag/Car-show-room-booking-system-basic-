@@ -1,0 +1,62 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile information",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string" },
+        "displayName": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "role": { "type": "string", "enum": ["customer", "admin"] }
+      },
+      "required": ["uid", "email"]
+    },
+    "Car": {
+      "title": "Car",
+      "description": "Mercedes-Benz car catalog item",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "model": { "type": "string" },
+        "price": { "type": "number" },
+        "description": { "type": "string" },
+        "image": { "type": "string" },
+        "specs": { "type": "object" }
+      },
+      "required": ["id", "model", "price", "image"]
+    },
+    "Booking": {
+      "title": "Booking",
+      "description": "Car booking record",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "carId": { "type": "string" },
+        "status": { "type": "string", "enum": ["pending", "confirmed", "delivered", "delayed"] },
+        "amount": { "type": "number" },
+        "deliveryDate": { "type": "string", "format": "date" },
+        "deliveryTime": { "type": "string" },
+        "notes": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "userId", "carId", "status", "amount"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profiles"
+    },
+    "/cars/{carId}": {
+      "schema": "Car",
+      "description": "Car catalog"
+    },
+    "/bookings/{bookingId}": {
+      "schema": "Booking",
+      "description": "User bookings"
+    }
+  }
+}
